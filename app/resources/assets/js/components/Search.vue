@@ -1,6 +1,9 @@
 <template>
     <div class="container">
-        
+        <form>
+            <p>Ceci est ma valeur: {{a}}</p>
+            <input type="button" @click="increment()" value="Incrémente-moi ça" />
+        </form>
     </div>
 </template>
 

@@ -11,6 +11,8 @@
                     
                 </div>
             </div-->
+
+            <!-- La vue Search -->
             <search></search>
         </div>
     </div>
