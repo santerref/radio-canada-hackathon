@@ -12,7 +12,7 @@
                     <h3>Un language révolutionnaire pour communiquer avec les autistes</h3>
                     <p class="meta datetime">Diffusion: 21 mars 2017, 13h06</p>
                     <p class="meta ">Gravel le matin</p>
-                    <button class="btn btn-primary btn-rounded" @click="play($event, $result.mediaId)><i class="fa fa-play"></i> | 10:00</button>
+                    <radioplayer :mediaId="result._source.mediaId" :startAt="result._source.startAt" :endAt="result._source.endAt"></radioplayer>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
@@ -29,9 +29,13 @@
     export default {
         props: ['results'],
         methods: {
+            /*
             play: function(event, mediaId) {
-                app
+                window.premierePlayer.idMedia = mediaId;
+                console.log(mediaId)
+                //window.premierePlayer.play();
             }
+            */
         }
     }
 </script>

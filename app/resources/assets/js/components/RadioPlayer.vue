@@ -1,5 +1,6 @@
 <template>
     <div>
+        <button :class="{'active': (!playing && play_state == 1) || !playing && play_state != 1}" class="btn btn-primary btn-rounded" @click="on_click_button"><i :class="{'fa-play': !playing && play_state != 1, 'fa-pause': playing && play_state == 2, 'fa-hourglass-2': !playing && play_state == 1}" class="fa"></i>{{this.duration}}</button>
         <div :id="id" hidden="hidden"></div>
     </div>
 </template>
@@ -18,20 +19,65 @@
     };
 
     export default {
-        props: ['mediaId'],
+        props: ['mediaId', 'duration'],
         data() {
             return {
                 id: "radiocanada_player_" + generateUUID(),
-                player: null
+                player: null,
+                playing: false,
+                play_state: 0, // 0 = never, 1 = loading, 2 = ok
             }
         },
-        ready() {
+        mounted() {
             this.player = new RadioCanada.player(this.id, {
-                'appCode': 'medianet'
+                appCode: 'medianet',
+                idMedia: this.mediaId
             });
+            this.player.addEventListener(RadioCanada.player.events.PAUSE, this.on_pause);
+            this.player.addEventListener(RadioCanada.player.events.PLAY, this.on_play);
+            this.player.addEventListener(RadioCanada.player.events.SEEKING, this.on_seeking);
+            this.player.addEventListener(RadioCanada.player.events.SEEKED, this.on_seeked);
+            this.player.addEventListener(RadioCanada.player.events.COMPLETE, this.on_complete);
+            this.player.addEventListener(RadioCanada.player.events.META_LOADED, this.on_metaloaded);
+            this.player.addEventListener(RadioCanada.player.events.READY, this.on_ready);
         },
-        on: {
-            
+        methods: {
+            on_click_button: function(event) {
+                if (this.playing) {
+                    this.player.pause();
+                } else {
+                    if (this.play_state == 0) {
+                        this.play_state = 1;
+                    }
+                    this.player.play();
+                }
+            },
+            on_pause: function(event) {
+                console.log("on pause");
+                this.playing = false;
+            },
+            on_play: function(event) {
+                console.log("on play");
+                this.playing = true;
+                this.play_state = 2;
+            },
+            on_seeking: function(event) {
+                console.log("on seeking");
+                this.seeking = true;
+            },
+            on_seeked: function(event) {
+                console.log("on seeked");
+                this.seeking = false;
+            },
+            on_complete: function(event) {
+                console.log("on complete");
+            },
+            on_metaloaded: function(event) {
+                console.log("on on_metaloaded");
+            },
+            on_ready: function(event) {
+                console.log("on ready");
+            }
         }
     }
 </script>
