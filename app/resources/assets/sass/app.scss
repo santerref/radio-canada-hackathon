@@ -30,7 +30,7 @@ section.search {
 }
 
 .search button.search-btn, .search input[type="button"].search-btn {
-    background-color: #eb7d00;
+    background-color: #df7700;
     border: none;
     line-height: 2.66em;
     padding: 0 15px;
@@ -157,4 +157,9 @@ img.thumbnail {
     -webkit-transition: border 0.2s ease-in-out;
     transition: border 0.2s ease-in-out;
         border-radius: 100px;
+}
+
+
+.search .headline {
+  color: white;
 }

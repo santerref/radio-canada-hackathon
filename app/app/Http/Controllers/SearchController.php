@@ -12,15 +12,15 @@ class SearchController extends Controller
     {
         $response = app('elastic')->request('POST', 'media/segment/_search', [
             'query' => [
-                'size' => 100
+                'size' => 100,
             ],
             'body' => json_encode([
                 'query' => [
                     'query_string' => [
-                        'query' => $request->get('q')
-                    ]
-                ]
-            ])
+                        'query' => $request->get('q'),
+                    ],
+                ],
+            ]),
         ]);
 
         $results = \GuzzleHttp\json_decode($response->getBody()->getContents(), true)['hits']['hits'];
@@ -32,6 +32,12 @@ class SearchController extends Controller
 
             $start = Carbon::parse($result['_source']['startAt']);
             $end = Carbon::parse($result['_source']['endAt']);
+
+            $result['_source']['programme']['image'] = str_replace(
+                '/v1/',
+                '/w_250/v1/',
+                $result['_source']['programme']['image']
+            );
 
             $result['duration'] = $end->diffInSeconds($start);
 
@@ -71,9 +77,10 @@ class SearchController extends Controller
                 'diffusion' => $faker->dateTime->format('Y-m-d H:i'),
                 'emission' => $faker->randomElement($emissions),
                 'duration' => $faker->numberBetween(1, 30 * 60),
-                'description' => $faker->paragraph
+                'description' => $faker->paragraph,
             ];
         }
+
         return $results;
     }
 }
