@@ -15,7 +15,26 @@ require('./bootstrap');
 
 //Vue.component('example', require('./components/Example.vue'));
 Vue.component('search', require('./components/Search.vue'));
+Vue.component('emissions-select', require('./components/EmissionsSelect.vue'));
+
+import EmissionsChoices from './components/EmissionsSelectChoices'
+import Axios from 'axios';
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data () {
+        return {
+            emissionChoice: EmissionsChoices[0]
+        }
+    },
+    methods : {
+        updateEmission (choice) {
+            this.emissionChoice = choice;
+        },
+        search (query) {
+            axios.get('/api/search', { params : {
+                q: query
+            }});
+        }
+    }
 });

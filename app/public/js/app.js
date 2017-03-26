@@ -11213,8 +11213,13 @@ module.exports = g;
 
 /***/ }),
 /* 10 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_EmissionsSelectChoices__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -11232,9 +11237,29 @@ __webpack_require__(31);
 
 //Vue.component('example', require('./components/Example.vue'));
 Vue.component('search', __webpack_require__(34));
+Vue.component('emissions-select', __webpack_require__(49));
+
+
+
 
 var app = new Vue({
-  el: '#app'
+    el: '#app',
+    data: function data() {
+        return {
+            emissionChoice: __WEBPACK_IMPORTED_MODULE_0__components_EmissionsSelectChoices__["a" /* default */][0]
+        };
+    },
+
+    methods: {
+        updateEmission: function updateEmission(choice) {
+            this.emissionChoice = choice;
+        },
+        search: function search(query) {
+            axios.get('/api/search', { params: {
+                    q: query
+                } });
+        }
+    }
 });
 
 /***/ }),
@@ -12102,12 +12127,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {};
+        return {
+            query: ""
+        };
     },
 
     methods: {
-        increment: function increment() {
-            this.a += 1;
+        search: function search() {
+            this.$emit('search', this.query);
         }
     }
 });
@@ -31733,8 +31760,6 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('section', {
     staticClass: "search"
   }, [_c('h2', {
@@ -31742,17 +31767,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Nom du projet")]), _vm._v(" "), _c('p', {
     staticClass: "headline"
   }, [_vm._v("Ce que vous avez entendu en ondes")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.query),
+      expression: "query"
+    }],
     staticClass: "search-input",
     attrs: {
       "type": "text"
+    },
+    domProps: {
+      "value": (_vm.query)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.query = $event.target.value
+      }
     }
   }), _vm._v(" "), _c('button', {
     staticClass: "search-btn",
     attrs: {
       "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.search()
+      }
     }
   }, [_vm._v("Rechercher")])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -41112,6 +41157,182 @@ module.exports = function(module) {
 __webpack_require__(10);
 module.exports = __webpack_require__(11);
 
+
+/***/ }),
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EmissionsSelectChoices__ = __webpack_require__(51);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['choice'],
+    data: function data() {
+        return {
+            choices: __WEBPACK_IMPORTED_MODULE_0__EmissionsSelectChoices__["a" /* default */]
+        };
+    },
+
+    methods: {
+        update: function update(choice) {
+            this.$emit('update', choice);
+        }
+    },
+    computed: {
+        label: function label() {
+            if (!this.choice) return "";
+            return this.choice.label;
+        }
+    }
+});
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(35)(
+  /* script */
+  __webpack_require__(48),
+  /* template */
+  __webpack_require__(50),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/EmissionsSelect.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] EmissionsSelect.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-653de2af", Component.options)
+  } else {
+    hotAPI.reload("data-v-653de2af", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "btn-group"
+  }, [_c('button', {
+    staticClass: "btn btn-primary dropdown-toggle",
+    attrs: {
+      "type": "button",
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.label) + " "), _c('span', {
+    staticClass: "caret"
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu"
+  }, _vm._l((_vm.choices), function(choice) {
+    return _c('li', [_c('a', {
+      attrs: {
+        "href": "#"
+      },
+      on: {
+        "click": function($event) {
+          _vm.update(choice)
+        }
+      }
+    }, [_vm._v(_vm._s(choice.label))])])
+  }))])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-653de2af", module.exports)
+  }
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ([{
+    value: 0,
+    label: 'Toutes les émissions'
+}, {
+    value: 672,
+    label: 'La soirée est encore jeune'
+}, {
+    value: 52,
+    label: 'Les années lumière'
+}, {
+    value: 372,
+    label: 'Médium large'
+}, {
+    value: 1330,
+    label: 'Culture club'
+}, {
+    value: 373,
+    label: 'Plus on est de fous, plus on lit'
+}, {
+    value: 3851,
+    label: 'Gravel le matin'
+}, {
+    value: 4585,
+    label: 'On est pas sorti de l\'auberge'
+}, {
+    value: 4586,
+    label: 'Les grands entretiens'
+}, {
+    value: 206,
+    label: 'La croisée (Alberta)'
+}, {
+    value: 377,
+    label: 'La sphère'
+}]);
 
 /***/ })
 /******/ ]);

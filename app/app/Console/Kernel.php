@@ -18,7 +18,6 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         SyncRadioCanada::class,
         MapFields::class,
-        ExtractAudioText::class,
     ];
 
     /**

@@ -5,7 +5,7 @@
     <section class="search">
         <div class="container">
             <div class="col-md-8 col-md-offset-2">
-                <search></search>
+                <search v-on:search="search"></search>
             </div>
         </div>
     </section>
@@ -18,11 +18,10 @@
                         Toutes les dates <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">Aujourd'hui</a></li>
+                        <li><a href="#">Les 7 derniers jours</a></li>
+                        <li><a href="#">Les 30 derniers jours</a></li>
+                        <li><a href="#">La dernière année</a></li>
                     </ul>
                 </div>
 
@@ -40,19 +39,7 @@
                     </ul>
                 </div>
 
-                <!-- Single button -->
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Toute les émissions <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </div>
+                <emissions-select v-on:update="updateEmission" :choice="emissionChoice"></emissions-select>
             </div>
         </div>
     </section>
