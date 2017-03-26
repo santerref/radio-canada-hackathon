@@ -1,9 +1,9 @@
 <template>
     <section class="search">
-        <h2 class="titre">Nom du projet</h2>
+        <h1 class="titre">Nom du projet</h1>
         <p class="headline">Ce que vous avez entendu en ondes</p>
-        <input class="search-input" type="text" v-model="query" />
-        <button type="button" class="search-btn" @click="search()">Rechercher</button>
+        <input class="search-input" type="text" v-model="query"  aria-label="Recherche" title="Recherche" />
+        <button type="submit" class="search-btn" @click="search()">Rechercher</button>
     </section>
 </template>
 

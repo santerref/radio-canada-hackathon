@@ -31947,7 +31947,7 @@ var Component = __webpack_require__(3)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/BsSelect.vue"
+Component.options.__file = "/Users/usr/Documents/GitHub/radio-canada-hackathon/app/resources/assets/js/components/BsSelect.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] BsSelect.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -31981,7 +31981,7 @@ var Component = __webpack_require__(3)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/Results.vue"
+Component.options.__file = "/Users/usr/Documents/GitHub/radio-canada-hackathon/app/resources/assets/js/components/Results.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Results.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32015,7 +32015,7 @@ var Component = __webpack_require__(3)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/Search.vue"
+Component.options.__file = "/Users/usr/Documents/GitHub/radio-canada-hackathon/app/resources/assets/js/components/Search.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Search.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32042,7 +32042,7 @@ module.exports = Component.exports
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('section', {
     staticClass: "search"
-  }, [_c('h2', {
+  }, [_c('h1', {
     staticClass: "titre"
   }, [_vm._v("Nom du projet")]), _vm._v(" "), _c('p', {
     staticClass: "headline"
@@ -32055,7 +32055,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "search-input",
     attrs: {
-      "type": "text"
+      "type": "text",
+      "aria-label": "Recherche",
+      "title": "Recherche"
     },
     domProps: {
       "value": (_vm.query)
@@ -32069,7 +32071,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('button', {
     staticClass: "search-btn",
     attrs: {
-      "type": "button"
+      "type": "submit"
     },
     on: {
       "click": function($event) {
@@ -32135,7 +32137,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "heading"
   }, [_c('span', {
     staticClass: "lead"
-  }, [_vm._v(_vm._s(_vm.results.length) + " résultats")]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _vm._l((_vm.results), function(result) {
+  }, [_vm._v(_vm._s(_vm.results.length) + " résultat(s)")]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _vm._l((_vm.results), function(result) {
     return _c('div', {
       staticClass: "result-list",
       attrs: {
