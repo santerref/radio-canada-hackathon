@@ -25,7 +25,7 @@ section.search {
 }
 
 .search button.search-btn, .search input[type="button"].search-btn {
-    background-color: #ff8900;
+    background-color: #eb7d00;
     border: none;
     line-height: 2.66em;
     padding: 0 15px;
@@ -119,8 +119,8 @@ section.results {
 .font-fira {
   font-family: 'Fira Sans', sans-serif;
 }
-.result-item { display: block; }
-.result-item .col-md-8, .result-item .col-md-4 {
+.result-item { display: block; margin: 26px 0; min-height: 275px; }
+.result-item .col-md-8, .result-item .col-md-4, .result-item {
     padding: 20px;
     background-color: #e0e0e0;
 }
@@ -141,6 +141,16 @@ p.meta {
 }
 
 img.thumbnail {
-  width: 250px;
+  width: 200px;
   height: auto;
+    float: right;
+    display: block;
+    padding: 0px;
+    margin-bottom: 0;
+    background-color: none;
+    border: none;
+    border-radius: 0px;
+    -webkit-transition: border 0.2s ease-in-out;
+    transition: border 0.2s ease-in-out;
+        border-radius: 100px;
 }

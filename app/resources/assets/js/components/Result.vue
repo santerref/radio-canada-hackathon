@@ -1,14 +1,12 @@
 <template>
     <div class="result-item">
-        <div class="infos col-md-8">
+        <div class="infos">
+            <img class="thumbnail" v-bind:src="result._source.programme.image">
             <h3 v-html="result._source.title"></h3>
             <p class="meta datetime">Diffusion: {{ diffusion.format('YYYY MM DD HH:mm') }}</p>
             <p class="meta ">{{ result._source.programme.title }}</p>
             <button class="btn btn-primary btn-rounded"><i class="fa fa-play"></i> | {{ duration }}</button>
             <div v-html="summary"></div>
-        </div>
-        <div class="col-md-4">
-            <img class="thumbnail" v-bind:src="result._source.programme.image">
         </div>
     </div>
 </template>
