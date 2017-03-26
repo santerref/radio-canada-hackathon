@@ -25,35 +25,15 @@ class MapFields extends Command
                     'settings' => [
                         'analysis' => [
                             'filter' => [
-                                'french_elision' => [
-                                    'type' => 'elision',
-                                    'articles_case' => true,
-                                    'articles' => [
-                                        'l',
-                                        'm',
-                                        't',
-                                        'qu',
-                                        'n',
-                                        's',
-                                        'j',
-                                        'd',
-                                        'c',
-                                        'jusqu',
-                                        'quoiqu',
-                                        'lorsqu',
-                                        'puisqu',
-                                    ],
-                                ],
                                 'french_stop' => [
                                     'type' => 'stop',
                                     'stopwords' => '_french_',
-                                ]
+                                ],
                             ],
                             'analyzer' => [
                                 'french' => [
                                     'tokenizer' => 'standard',
                                     'filter' => [
-                                        'french_elision',
                                         'lowercase',
                                         'french_stop',
                                     ],
@@ -88,6 +68,10 @@ class MapFields extends Command
                                 'mediaId' => [
                                     'type' => 'integer',
                                 ],
+                                'verbatim' => [
+                                    'type' => 'text',
+                                    'analyzer' => 'french',
+                                ],
                                 'programme' => [
                                     'type' => 'nested',
                                     'properties' => [
@@ -103,11 +87,17 @@ class MapFields extends Command
                                             'type' => 'text',
                                             'analyzer' => 'french',
                                         ],
+                                        'image' => [
+                                            'type' => 'text',
+                                        ],
                                     ],
                                 ],
                                 'episode' => [
                                     'type' => 'nested',
                                     'properties' => [
+                                        'id' => [
+                                            'type' => 'integer',
+                                        ],
                                         'title' => [
                                             'type' => 'text',
                                             'analyzer' => 'french',

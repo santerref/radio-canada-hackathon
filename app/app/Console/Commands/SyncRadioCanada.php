@@ -12,7 +12,7 @@ class SyncRadioCanada extends Command
      *
      * @var string
      */
-    protected $signature = 'radiocanada:sync {programmeId?} {--all}';
+    protected $signature = 'radiocanada:sync {programmeId?} {--all} {--extract-audio}';
 
     /**
      * The console command description.
@@ -45,26 +45,42 @@ class SyncRadioCanada extends Command
                 [
                     'ContentTypeIds' => '18',
                     'programmeIds' => $programmeId,
-                    'pageSize' => 200,
+                    'pageSize' => config('radiocanada.page_size'),
                 ]
             );
+
+            $programme = app('neuro')->call('programmes/' . $programmeId);
 
             foreach ($sitesearchResult['items'] as $key => $episode) {
                 echo ($key + 1) . "/" . count($sitesearchResult['items']) . "\r\n";
                 $neuroResult = app('neuro')->call('episodes/' . $episode['id'] . '/clips');
                 echo "\t " . count($neuroResult) . " segments.\r\n";
                 foreach ($neuroResult as $segment) {
-                    if (isset($segment['summaryMultimediaItem']) && isset($segment['summaryMultimediaItem']['futureId'])) {
-                        $media = app('neuro')->call('media/' . $segment['summaryMultimediaItem']['futureId']);
-                    } elseif (isset($segment['summaryMultimediaItem']) && isset($segment['summaryMultimediaItem']['items'])) {
-                        $media = app('neuro')->call('media/' . $segment['summaryMultimediaItem']['items'][0]['media']['futureId']);
-                    } else {
-                        $media = false;
+                    $media = $this->getMediaFromSegment($segment);
+
+                    if ($media) {
+                        dispatch(new SyncEpisode([
+                            'episode' => $episode,
+                            'programme' => $programme,
+                            'segment' => $segment,
+                            'media' => $media,
+                        ], $this->option('extract-audio')));
                     }
-                    $programme = app('neuro')->call('programmes/' . $programmeId);
-                    dispatch(new SyncEpisode($episode, $programme, $segment, $media));
                 }
             }
         }
+    }
+
+    protected function getMediaFromSegment($segment)
+    {
+        if (isset($segment['summaryMultimediaItem']) && isset($segment['summaryMultimediaItem']['futureId'])) {
+            $media = app('neuro')->call('media/' . $segment['summaryMultimediaItem']['futureId']);
+        } elseif (isset($segment['summaryMultimediaItem']) && isset($segment['summaryMultimediaItem']['items'])) {
+            $media = app('neuro')->call('media/' . $segment['summaryMultimediaItem']['items'][0]['media']['futureId']);
+        } else {
+            $media = false;
+        }
+
+        return $media;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\SegmentIndexed;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -20,12 +21,15 @@ class SyncEpisode implements ShouldQueue
 
     protected $programme;
 
-    public function __construct($episode, $programme, $segment, $media)
+    protected $extractAudio;
+
+    public function __construct($data, $extractAudio = false)
     {
-        $this->episode = $episode;
-        $this->segment = $segment;
-        $this->media = $media;
-        $this->programme = $programme;
+        $this->episode = $data['episode'];
+        $this->segment = $data['segment'];
+        $this->media = $data['media'];
+        $this->programme = $data['programme'];
+        $this->extractAudio = $extractAudio;
     }
 
     public function handle()
@@ -37,8 +41,10 @@ class SyncEpisode implements ShouldQueue
             $this->media
         );
 
-        $response = app('elastic')->request('PUT', 'media/segment/' . $segment['id'] . '/_create', [
+        app('elastic')->request('POST', 'media/segment/' . $segment['doc']['id'] . '/_update', [
             'body' => json_encode($segment),
         ]);
+
+        event(new SegmentIndexed($segment, $this->extractAudio));
     }
 }
