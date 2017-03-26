@@ -26934,8 +26934,7 @@ var app = new Vue({
             timetenseChoices: __WEBPACK_IMPORTED_MODULE_1__components_TimetenseChoices__["a" /* default */],
             regionChoice: __WEBPACK_IMPORTED_MODULE_2__components_RegionChoices__["a" /* default */][0],
             regionChoices: __WEBPACK_IMPORTED_MODULE_2__components_RegionChoices__["a" /* default */],
-            results: [],
-            isSearching: false
+            results: []
         };
     },
 
@@ -26952,7 +26951,6 @@ var app = new Vue({
         search: function search(query) {
             var _this = this;
 
-            this.isSearching = true;
             axios.get('/api/search', { params: {
                     q: query,
                     timetense: this.timetenseChoice.value,
@@ -26960,7 +26958,6 @@ var app = new Vue({
                     emission: this.emissionChoice.value
                 } }).then(function (response) {
                 _this.results = response.data;
-                _this.isSearching = false;
             });
         }
     }
@@ -27865,8 +27862,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -27936,7 +27931,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['searching'],
     data: function data() {
         return {
             query: ""
@@ -47818,7 +47812,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/BsSelect.vue"
+Component.options.__file = "/Users/usr/Documents/GitHub/radio-canada-hackathon/app/resources/assets/js/components/BsSelect.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] BsSelect.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -47852,7 +47846,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/Result.vue"
+Component.options.__file = "/Users/usr/Documents/GitHub/radio-canada-hackathon/app/resources/assets/js/components/Result.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Result.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -47886,7 +47880,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/Results.vue"
+Component.options.__file = "/Users/usr/Documents/GitHub/radio-canada-hackathon/app/resources/assets/js/components/Results.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Results.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -47920,7 +47914,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/Search.vue"
+Component.options.__file = "/Users/usr/Documents/GitHub/radio-canada-hackathon/app/resources/assets/js/components/Search.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Search.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -47948,8 +47942,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "result-item"
   }, [_c('div', {
-    staticClass: "infos col-md-8"
-  }, [_c('h3', {
+    staticClass: "infos"
+  }, [_c('img', {
+    staticClass: "thumbnail",
+    attrs: {
+      "src": _vm.result._source.programme.image
+    }
+  }), _vm._v(" "), _c('h3', {
     domProps: {
       "innerHTML": _vm._s(_vm.result._source.title)
     }
@@ -47964,13 +47963,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" | " + _vm._s(_vm.duration))]), _vm._v(" "), _c('div', {
     domProps: {
       "innerHTML": _vm._s(_vm.summary)
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4"
-  }, [_c('img', {
-    staticClass: "thumbnail",
-    attrs: {
-      "src": _vm.result._source.programme.image
     }
   })])])
 },staticRenderFns: []}
@@ -48025,15 +48017,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.search()
       }
     }
-  }, [_vm._v("Rechercher "), _c('i', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.searching),
-      expression: "searching"
-    }],
-    staticClass: "fa fa-refresh fa-spin"
-  })])])
+  }, [_vm._v("Rechercher")])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
