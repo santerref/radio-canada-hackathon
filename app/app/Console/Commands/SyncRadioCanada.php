@@ -12,7 +12,7 @@ class SyncRadioCanada extends Command
      *
      * @var string
      */
-    protected $signature = 'radiocanada:sync {programmeId?} {--all} {--extract-audio}';
+    protected $signature = 'radiocanada:sync {programmeId?*} {--all} {--extract-audio}';
 
     /**
      * The console command description.
@@ -28,10 +28,10 @@ class SyncRadioCanada extends Command
 
     public function handle()
     {
-        $programmeId = $this->argument('programmeId');
+        $programmeIds = $this->argument('programmeId');
         $syncAll = $this->option('all');
 
-        if (!$programmeId && !$syncAll) {
+        if (!$programmeIds && !$syncAll) {
             $this->error('You must specify an ID or use the option --all to sync all medias.');
 
             return;
@@ -40,31 +40,34 @@ class SyncRadioCanada extends Command
         if ($syncAll) {
 
         } else {
-            $sitesearchResult = app('sitesearch')->call(
-                'internal/rcgraph/indexable-content-summaries',
-                [
-                    'ContentTypeIds' => '18',
-                    'programmeIds' => $programmeId,
-                    'pageSize' => config('radiocanada.page_size'),
-                ]
-            );
+            foreach ($programmeIds as $programmeId) {
 
-            $programme = app('neuro')->call('programmes/' . $programmeId);
+                $sitesearchResult = app('sitesearch')->call(
+                    'internal/rcgraph/indexable-content-summaries',
+                    [
+                        'ContentTypeIds' => '18',
+                        'programmeIds' => $programmeId,
+                        'pageSize' => config('radiocanada.page_size'),
+                    ]
+                );
 
-            foreach ($sitesearchResult['items'] as $key => $episode) {
-                echo ($key + 1) . "/" . count($sitesearchResult['items']) . "\r\n";
-                $neuroResult = app('neuro')->call('episodes/' . $episode['id'] . '/clips');
-                echo "\t " . count($neuroResult) . " segments.\r\n";
-                foreach ($neuroResult as $segment) {
-                    $media = $this->getMediaFromSegment($segment);
+                $programme = app('neuro')->call('programmes/' . $programmeId);
 
-                    if ($media) {
-                        dispatch(new SyncEpisode([
-                            'episode' => $episode,
-                            'programme' => $programme,
-                            'segment' => $segment,
-                            'media' => $media,
-                        ], $this->option('extract-audio')));
+                foreach ($sitesearchResult['items'] as $key => $episode) {
+                    echo ($key + 1) . "/" . count($sitesearchResult['items']) . "\r\n";
+                    $neuroResult = app('neuro')->call('episodes/' . $episode['id'] . '/clips');
+                    echo "\t " . count($neuroResult) . " segments.\r\n";
+                    foreach ($neuroResult as $segment) {
+                        $media = $this->getMediaFromSegment($segment);
+
+                        if ($media) {
+                            dispatch(new SyncEpisode([
+                                'episode' => $episode,
+                                'programme' => $programme,
+                                'segment' => $segment,
+                                'media' => $media,
+                            ], $this->option('extract-audio')));
+                        }
                     }
                 }
             }

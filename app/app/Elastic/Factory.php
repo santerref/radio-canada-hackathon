@@ -21,7 +21,7 @@ class Factory
                 'title' => $segment['title'],
                 'canonicalWebLink' => $segment['canonicalWebLink']['href'],
                 'summary' => $segment['summary'],
-                'broadcastedFirstTimeAt' => Carbon::parse($segment['broadcastedFirstTimeAt'])->toIso8601String(),
+                'broadcastedFirstTimeAt' => Carbon::parse($segment['episode']['broadcastedFirstTimeAt'])->toIso8601String(),
                 'startAt' => Carbon::parse($segment['broadcastedFirstTimeAt'])->toIso8601String(),
                 'endAt' => Carbon::parse($segment['broadcastedFirstTimeAt'])->addSeconds($segment['durationInSeconds'])->toIso8601String(),
                 'mediaId' => $media['id'],

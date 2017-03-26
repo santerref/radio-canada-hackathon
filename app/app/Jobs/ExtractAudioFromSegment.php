@@ -26,6 +26,6 @@ class ExtractAudioFromSegment implements ShouldQueue
      */
     public function handle()
     {
-
+        
     }
 }
