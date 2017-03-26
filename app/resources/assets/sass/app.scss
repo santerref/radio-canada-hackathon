@@ -1,6 +1,6 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600);
 
 // Variables
 @import "variables";
@@ -11,37 +11,84 @@
 section.search {
   padding-top: 60px;
   padding-bottom: 20px;
-  background-color: #2e6da4;
+  background-color: #1b2740;
 }
 
 .search input[type="text"] {
-  width: 350px;
-  margin-right: 10px;
-  color: #000;
-  font-family: 'Roboto', sans-serif;
+    width: 350px;
+    margin-right: 10px;
+    color: #000;
+    font-family: 'Roboto', sans-serif;
+    line-height: 2.5em;
+    padding: 0 12px;
+    width: 75%;
 }
 
 .search button.search-btn, .search input[type="button"].search-btn {
-  background-color: #e98300;
-  border: none;
-  line-height: 1.9em;
-  padding-right: 15px;
-  padding-left: 15px;
-  font-family: 'Fira Sans', sans-serif;
+    background-color: #ff8900;
+    border: none;
+    line-height: 2.66em;
+    padding: 0 15px;
+    font-family: 'Fira Sans', sans-serif;
+}
+.btn-group p, .dropdown-toggle {
+    color: #1b2740;
+    font-size: 20px;
+    padding: 4px 2px;
+    margin: 0 12px;
+
+}
+.btn-group p {
+    float: left;
+    font-weight: bold;
+    line-height: 1.75em;
+    margin-left: 0;
 }
 
-.search h2.title {
+.dropdown-toggle {
+    background-color: #e0e0e0;
+    border: none;
+    border-bottom: 1px solid #888;
+    border-radius: 0;
+    
+}
+.dropdown-toggle:hover, .dropdown-toggle:focus, .dropdown-toggle:active {
+    background-color: #d4d4d4;
+    border-color: #333;
+    color: #333;
+}
+.search h2.titre {
   font-family: 'Fira Sans', sans-serif;
   font-weight: bold;
+    font-size: 60px;
+    line-height: 1.75em;
 }
 
 .search p.headline {
   font-family: 'Fira Sans', sans-serif;
+    font-size: 26px;
+    line-height: 1.5em;
+}
+
+.container .heading { margin: 25px 0; }
+.container .lead {
+    font-size:24px;
+    font-weight: bold;    
+}
+
+.container .sort {
+    font-size:16px;
+    color: #ccc;
+}
+.container .sort a {
+    color: #1b2740;
+    font-size:16px;
 }
 
 section {
   padding-top: 20px;
   padding-bottom: 20px;
+    font-size: 20px;
 }
 
 section.tags {
@@ -64,15 +111,10 @@ section.results {
 .font-fira {
   font-family: 'Fira Sans', sans-serif;
 }
-
-.result-list {
-  background-color: #e0e0e0;
+.result-item { display: block; }
+.result-item .col-md-8, .result-item .col-md-4 {
+    padding: 20px;
+    background-color: #e0e0e0;
 }
-
-.result-list .infos {
-  max-width: 50%;
-}
-
-.result-list .result-image {
-  min-width: 300px;
-}
+.result-item .col-md-8 p { font-size: 16px; font-family: 'Roboto', sans-serif; line-height: 1.5em; }
+.result-list .col-md-8 h3 { font-size: 26px; }

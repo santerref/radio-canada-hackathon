@@ -31655,7 +31655,7 @@ var Component = __webpack_require__(35)(
   /* cssModules */
   null
 )
-Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/Search.vue"
+Component.options.__file = "/Users/usr/Documents/GitHub/radio-canada-hackathon/app/resources/assets/js/components/Search.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Search.vue: functional components are not supported with templates, they should use render functions.")}
 
