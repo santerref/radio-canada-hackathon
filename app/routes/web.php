@@ -12,5 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::get('/canvas', function() {
+    return view('canvas');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('search', 'SearchController@index');
 });

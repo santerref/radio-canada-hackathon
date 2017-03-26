@@ -1,9 +1,146 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:300,400,600);
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+section.search {
+  padding-top: 60px;
+  padding-bottom: 20px;
+  background-color: #1b2740;
+}
+
+.search input[type="text"] {
+    width: 350px;
+    margin-right: 10px;
+    color: #000;
+    font-family: 'Roboto', sans-serif;
+    line-height: 2.5em;
+    padding: 0 12px;
+    width: 75%;
+}
+
+.search button.search-btn, .search input[type="button"].search-btn {
+    background-color: #ff8900;
+    border: none;
+    line-height: 2.66em;
+    padding: 0 15px;
+    font-family: 'Fira Sans', sans-serif;
+    color: #fff;
+}
+.tags p, .dropdown-toggle {
+    color: #1b2740;
+    font-size: 20px;
+    padding: 4px 2px;
+    margin: 0 12px;
+
+}
+.tags p {
+    float: left;
+    font-weight: bold;
+    line-height: 1.75em;
+    margin-left: 0;
+}
+
+.dropdown-toggle {
+    background-color: #e0e0e0;
+    border: none;
+    border-bottom: 1px solid #888;
+    border-radius: 0;
+    
+}
+.dropdown-toggle:hover, .dropdown-toggle:focus, .dropdown-toggle:active, .btn-primary:active:hover, .btn-primary:active:focus, .btn-primary:active.focus, .btn-primary.active:hover, .btn-primary.active:focus, .btn-primary.active.focus, .open > .btn-primary.dropdown-toggle:hover, .open > .btn-primary.dropdown-toggle:focus, .open > .btn-primary.dropdown-toggle.focus {
+    background-color: #d4d4d4;
+    border-color: #333;
+    color: #333;
+    box-shadow: none;
+}
+.search h1.titre {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: bold;
+    font-size: 60px;
+    line-height: 1.75em;
+    color: #ffffff;
+}
+
+.search p.headline {
+  font-family: 'Fira Sans', sans-serif;
+    font-size: 26px;
+    line-height: 1.5em;
+}
+
+.container .heading { margin: 25px 0; }
+.container .lead {
+    font-size:24px;
+    font-weight: bold;    
+}
+
+.container .sort {
+    font-size:16px;
+    color: #ccc;
+}
+.container .sort a {
+    color: #1b2740;
+    font-size:16px;
+}
+
+section {
+  padding-top: 20px;
+  padding-bottom: 20px;
+    font-size: 20px;
+}
+
+section.tags {
+    background-color: #e0e0e0;
+    //overflow-x: hidden;
+    //overflow-x: scroll;
+}
+section.tags .container .col-md-12 {
+        min-width: 850px;
+    //overflow-x: scroll;
+}
+section.tags .label {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+section.results {
+  color: #000;
+}
+
+.font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-fira {
+  font-family: 'Fira Sans', sans-serif;
+}
+.result-item { display: block; }
+.result-item .col-md-8, .result-item .col-md-4 {
+    padding: 20px;
+    background-color: #e0e0e0;
+}
+.result-item .col-md-8 p { font-size: 16px; font-family: 'Roboto', sans-serif; line-height: 1.5em; }
+.result-list .col-md-8 h3 { font-size: 26px; }
+p.meta {
+    margin-bottom: 0px;
+}
+.result-item button {
+    color: #fff;
+    background-color: #1b2740;
+    border-color: #131c2e;
+    border-radius: 25px;
+    font-size: 18px;
+    padding: 0 16px;
+    margin: 10px 0;
+    line-height: 2.125;
+}
+
+img.thumbnail {
+  width: 250px;
+  height: auto;
+}
