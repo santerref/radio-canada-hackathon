@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="heading">
-            <span class="lead">{{ results.length }} résultats</span>
+            <span class="lead">{{ results.length }} résultat(s)</span>
             <div class="pull-right sort">
                 <a href="#bestMatch">Trier par pertinence</a> | <a href="#sortDate">Trier par date</a>
             </div>
