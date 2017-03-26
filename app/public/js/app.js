@@ -26935,9 +26935,12 @@ var app = new Vue({
             regionChoice: __WEBPACK_IMPORTED_MODULE_2__components_RegionChoices__["a" /* default */][0],
             regionChoices: __WEBPACK_IMPORTED_MODULE_2__components_RegionChoices__["a" /* default */],
             results: [],
-            isSearching: false
+            haveResults: true,
+            isSearching: false,
+            query: ""
         };
     },
+    mounted: function mounted() {},
 
     methods: {
         updateEmission: function updateEmission(choice) {
@@ -26949,19 +26952,31 @@ var app = new Vue({
         updateRegion: function updateRegion(choice) {
             this.regionChoice = choice;
         },
-        search: function search(query) {
+        search: function search() {
             var _this = this;
 
+            if (this.query.length == 0) {
+                this.results = [];
+                this.haveResults = false;
+                return;
+            }
+
+            localStorage.setItem('lastSearch', this.query);
+            this.haveResults = true;
             this.isSearching = true;
             axios.get('/api/search', { params: {
-                    q: query,
+                    q: this.query,
                     timetense: this.timetenseChoice.value,
                     region: this.regionChoice.value,
                     emission: this.emissionChoice.value
                 } }).then(function (response) {
                 _this.results = response.data;
+                _this.haveResults = _this.results.length > 0;
                 _this.isSearching = false;
             });
+        },
+        type: function type(query) {
+            this.query = query;
         }
     }
 });
@@ -27939,13 +27954,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['searching'],
     data: function data() {
         return {
-            query: ""
+            'query': ""
         };
+    },
+    mounted: function mounted() {
+        var q = localStorage.getItem('lastSearch');
+
+        if (q.length > 0) {
+            this.query = q;
+        }
     },
 
     methods: {
         search: function search() {
-            this.$emit('search', this.query);
+            this.$emit('search');
+        },
+        type: function type() {
+            this.$emit('type', this.query);
         }
     }
 });
@@ -48010,6 +48035,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.query)
     },
     on: {
+      "keyup": [function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.search()
+      }, _vm.type],
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.query = $event.target.value

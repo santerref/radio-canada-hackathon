@@ -34,8 +34,13 @@ const app = new Vue({
             regionChoice: RegionChoices[0],
             regionChoices: RegionChoices,
             results: [],
-            isSearching: false
+            haveResults: true,
+            isSearching: false,
+            query: ""
         }
+    },
+    mounted () {
+
     },
     methods : {
         updateEmission (choice) {
@@ -47,17 +52,29 @@ const app = new Vue({
         updateRegion (choice) {
             this.regionChoice = choice;
         },
-        search (query) {
+        search () {
+            if (this.query.length == 0) {
+                this.results = [];
+                this.haveResults = false;
+                return;
+            }
+
+            localStorage.setItem('lastSearch', this.query);
+            this.haveResults = true;
             this.isSearching = true;
             axios.get('/api/search', { params : {
-                q: query,
+                q: this.query,
                 timetense: this.timetenseChoice.value,
                 region: this.regionChoice.value,
                 emission: this.emissionChoice.value
             }}).then(response => {
                 this.results = response.data;
+                this.haveResults = this.results.length > 0;
                 this.isSearching = false;
             });
+        },
+        type (query) {
+            this.query = query;
         }
     }
 });

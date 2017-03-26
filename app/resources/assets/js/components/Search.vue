@@ -2,7 +2,7 @@
     <section class="search">
         <h1 class="titre">Nom du projet</h1>
         <p class="headline">Ce que vous avez entendu en ondes</p>
-        <input class="search-input" type="text" v-model="query"  aria-label="Recherche" title="Recherche" />
+        <input class="search-input" @keyup.enter="search()" type="text" v-model="query" v-on:keyup="type" aria-label="Recherche" title="Recherche" />
         <button type="submit" class="search-btn" @click="search()">Rechercher <i class="fa fa-refresh fa-spin" v-show="searching"></i></button>
     </section>
 </template>
@@ -12,12 +12,22 @@
         props: ['searching'],
         data () {
             return {
-                query: ""
+                'query': ""
+            }
+        },
+        mounted () {
+            const q = localStorage.getItem('lastSearch');
+
+            if (q.length > 0) {
+                this.query = q;
             }
         },
         methods: {
             search () {
-                this.$emit('search', this.query)
+                this.$emit('search')
+            },
+            type () {
+                this.$emit('type', this.query)
             }
         }
     }
