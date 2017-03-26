@@ -1,14 +1,3 @@
-672     La soirée est encore jeune
-52      Les années lumière
-372     Médium large
-1330    Culture club
-373     Plus on est de fous, plus on lit
-3851    Gravel le matin
-4585    On est pas sorti de l'auberge
-4586    Les grands entretiens
-206     La croisée (Alberta)
-377     La sphère
-
 <template>
     <!-- Single button -->
     <div class="btn-group">
@@ -16,7 +5,7 @@
             {{ label }} <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li v-for="choice in choices"><a href="#" @click="update(choice)">{{ choice.label }}</a></li>
+            <li v-for="c in choices"><a href="#" @click="update(c)">{{ c.label }}</a></li>
         </ul>
     </div>
 </template>
@@ -25,12 +14,7 @@
     import EmissionsChoices from './EmissionsSelectChoices'
 
     export default {
-        props: ['choice'],
-        data () {
-            return {
-                choices: EmissionsChoices,
-            }
-        },
+        props: ['choice', 'choices'],
         methods: {
             update(choice) {
                 this.$emit('update', choice);
