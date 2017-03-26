@@ -15,6 +15,7 @@ require('./bootstrap');
 
 //Vue.component('example', require('./components/Example.vue'));
 Vue.component('search', require('./components/Search.vue'));
+Vue.component('radioplayer', require('./components/RadioPlayer.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -82,5 +82,7 @@
             </div>
         </div>
     </section>
+
+    <radioplayer id='premiere_player'></radioplayer>
 </div>
 @endsection
