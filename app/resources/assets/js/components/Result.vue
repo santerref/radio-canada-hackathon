@@ -31,7 +31,7 @@
                 return this.result._source.summary;
             },
             alt () {
-                return "Photo de l'animateur de l'émission « " + this.result._source.programme.title + " »";
+                return "";
             }
         }
     }
