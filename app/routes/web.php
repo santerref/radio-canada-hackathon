@@ -22,3 +22,7 @@ Route::get('/canvas', function() {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('search', 'SearchController@index');
+});
