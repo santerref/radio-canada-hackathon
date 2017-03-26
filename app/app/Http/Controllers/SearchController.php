@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchRequest;
+use Carbon\Carbon;
 use Faker\Factory;
 
 class SearchController extends Controller
@@ -11,11 +12,22 @@ class SearchController extends Controller
     {
         $response = app('elastic')->request('GET', 'media/segment/_search?size=5');
 
-        $results = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+        $results = \GuzzleHttp\json_decode($response->getBody()->getContents(), true)['hits']['hits'];
 
         // $results = $this->fakeResults();
 
-        return $results['hits']['hits'];
+        $results = array_map(function ($result) {
+            $result['_source']['title'] = html_entity_decode($result['_source']['title']);
+
+            $start = Carbon::parse($result['_source']['startAt']);
+            $end = Carbon::parse($result['_source']['endAt']);
+
+            $result['duration'] = $end->diffInSeconds($start);
+
+            return $result;
+        }, $results);
+
+        return $results;
     }
 
     /**
