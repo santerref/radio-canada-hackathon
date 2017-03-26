@@ -71,7 +71,8 @@ class SearchController extends Controller
                 'diffusion' => $faker->dateTime->format('Y-m-d H:i'),
                 'emission' => $faker->randomElement($emissions),
                 'duration' => $faker->numberBetween(1, 30 * 60),
-                'description' => $faker->paragraph
+                'description' => $faker->paragraph,
+                'mediaId' => '7674466'
             ];
         }
         return $results;

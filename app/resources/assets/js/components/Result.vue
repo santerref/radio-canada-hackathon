@@ -2,9 +2,9 @@
     <div class="result-item">
         <div class="infos col-md-8">
             <h3 v-html="result._source.title"></h3>
-            <p class="meta datetime">Diffusion: {{ diffusion.format('YYYY MM DD HH:mm') }}</p>
+            <p class="meta datetime">Diffusion: {{ diffusion.format('YYYY-MM-DD HH:mm') }}</p>
             <p class="meta ">{{ result._source.programme.title }}</p>
-            <button class="btn btn-primary btn-rounded"><i class="fa fa-play"></i> | {{ duration }}</button>
+            <radioplayer :mediaId="result._source.mediaId" :startAt="result._source.startAt" :endAt="result._source.endAt" :duration="duration" :diffusion="diffusion"></radioplayer>
             <div v-html="summary"></div>
         </div>
         <div class="col-md-4">

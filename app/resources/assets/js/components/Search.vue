@@ -15,13 +15,6 @@
                 'query': ""
             }
         },
-        mounted () {
-            const q = localStorage.getItem('lastSearch');
-
-            if (q.length > 0) {
-                this.query = q;
-            }
-        },
         methods: {
             search () {
                 this.$emit('search')

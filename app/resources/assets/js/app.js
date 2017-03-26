@@ -17,11 +17,18 @@ require('./bootstrap');
 Vue.component('search', require('./components/Search.vue'));
 Vue.component('bs-select', require('./components/BsSelect.vue'));
 Vue.component('results', require('./components/Results.vue'));
+Vue.component('radioplayer', require('./components/RadioPlayer.vue'));
 
 import EmissionsChoices from './components/EmissionsSelectChoices';
 import TimetenseChoices from './components/TimetenseChoices';
 import RegionChoices from './components/RegionChoices';
 import Axios from 'axios';
+
+/*
+window.premierePlayer = new RadioCanada.player('premiere_player', {
+    'appCode': 'medianet'
+});
+*/
 
 const app = new Vue({
     el: '#app',
@@ -59,7 +66,6 @@ const app = new Vue({
                 return;
             }
 
-            localStorage.setItem('lastSearch', this.query);
             this.haveResults = true;
             this.isSearching = true;
             axios.get('/api/search', { params : {

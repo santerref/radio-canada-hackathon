@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 168);
+/******/ 	return __webpack_require__(__webpack_require__.s = 171);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1899,7 +1899,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(158)("./" + name);
+            __webpack_require__(159)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -26895,8 +26895,8 @@ module.exports = function(module) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_EmissionsSelectChoices__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_TimetenseChoices__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_RegionChoices__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_TimetenseChoices__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_RegionChoices__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_axios__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_axios__);
 
@@ -26906,7 +26906,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(153);
+__webpack_require__(154);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -26915,14 +26915,21 @@ __webpack_require__(153);
  */
 
 //Vue.component('example', require('./components/Example.vue'));
-Vue.component('search', __webpack_require__(162));
-Vue.component('bs-select', __webpack_require__(159));
-Vue.component('results', __webpack_require__(161));
+Vue.component('search', __webpack_require__(164));
+Vue.component('bs-select', __webpack_require__(160));
+Vue.component('results', __webpack_require__(163));
+Vue.component('radioplayer', __webpack_require__(161));
 
 
 
 
 
+
+/*
+window.premierePlayer = new RadioCanada.player('premiere_player', {
+    'appCode': 'medianet'
+});
+*/
 
 var app = new Vue({
     el: '#app',
@@ -26961,7 +26968,6 @@ var app = new Vue({
                 return;
             }
 
-            localStorage.setItem('lastSearch', this.query);
             this.haveResults = true;
             this.isSearching = true;
             axios.get('/api/search', { params: {
@@ -27874,6 +27880,100 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+function generateUUID() {
+    // Public Domain/MIT
+    var d = new Date().getTime();
+    if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+        d += performance.now(); //use high-precision timer if available
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
+    });
+};
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['mediaId', 'duration', 'startAt', 'endAt', 'diffusion'],
+    data: function data() {
+        return {
+            id: "radiocanada_player_" + generateUUID(),
+            player: null,
+            playing: false,
+            play_state: 0 };
+    },
+    mounted: function mounted() {
+        this.player = new RadioCanada.player(this.id, {
+            appCode: 'medianet',
+            idMedia: this.mediaId
+        });
+        this.player.addEventListener(RadioCanada.player.events.PAUSE, this.on_pause);
+        this.player.addEventListener(RadioCanada.player.events.PLAY, this.on_play);
+        this.player.addEventListener(RadioCanada.player.events.SEEKING, this.on_seeking);
+        this.player.addEventListener(RadioCanada.player.events.SEEKED, this.on_seeked);
+        this.player.addEventListener(RadioCanada.player.events.COMPLETE, this.on_complete);
+        this.player.addEventListener(RadioCanada.player.events.META_LOADED, this.on_metaloaded);
+        this.player.addEventListener(RadioCanada.player.events.READY, this.on_ready);
+    },
+
+    methods: {
+        on_click_button: function on_click_button(event) {
+            if (this.playing) {
+                this.player.pause();
+            } else {
+                if (this.play_state == 0) {
+                    this.play_state = 1;
+                }
+                this.player.play();
+            }
+        },
+        on_pause: function on_pause(event) {
+            console.log("on pause");
+            this.playing = false;
+        },
+        on_play: function on_play(event) {
+            console.log("on play");
+            this.playing = true;
+            this.play_state = 2;
+        },
+        on_seeking: function on_seeking(event) {
+            console.log("on seeking");
+            this.seeking = true;
+        },
+        on_seeked: function on_seeked(event) {
+            console.log("on seeked");
+            this.seeking = false;
+        },
+        on_complete: function on_complete(event) {
+            console.log("on complete");
+        },
+        on_metaloaded: function on_metaloaded(event) {
+            console.log("on on_metaloaded");
+        },
+        on_ready: function on_ready(event) {
+            console.log("on ready");
+        }
+    }
+});
+
+/***/ }),
+/* 151 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -27903,12 +28003,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Result_vue__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Result_vue__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Result_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Result_vue__);
 //
 //
@@ -27935,7 +28035,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27957,13 +28057,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             'query': ""
         };
     },
-    mounted: function mounted() {
-        var q = localStorage.getItem('lastSearch');
-
-        if (q.length > 0) {
-            this.query = q;
-        }
-    },
 
     methods: {
         search: function search() {
@@ -27976,11 +28069,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(157);
+window._ = __webpack_require__(158);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -27990,7 +28083,7 @@ window._ = __webpack_require__(157);
 
 window.$ = window.jQuery = __webpack_require__(12);
 
-__webpack_require__(156);
+__webpack_require__(157);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -27998,7 +28091,7 @@ __webpack_require__(156);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(167);
+window.Vue = __webpack_require__(170);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -28029,7 +28122,7 @@ window.axios.defaults.headers.common = {
 // });
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28080,7 +28173,7 @@ window.axios.defaults.headers.common = {
 //     <li><a href="#">Windsor</a></li>
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28102,7 +28195,7 @@ window.axios.defaults.headers.common = {
 }]);
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -30486,7 +30579,7 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -47578,7 +47671,7 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(128), __webpack_require__(129)(module)))
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -47827,17 +47920,17 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 158;
+webpackContext.id = 159;
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(149),
   /* template */
-  __webpack_require__(165),
+  __webpack_require__(167),
   /* scopeId */
   null,
   /* cssModules */
@@ -47864,14 +47957,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
   __webpack_require__(150),
   /* template */
-  __webpack_require__(163),
+  __webpack_require__(169),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/RadioPlayer.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] RadioPlayer.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6a74a703", Component.options)
+  } else {
+    hotAPI.reload("data-v-6a74a703", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(151),
+  /* template */
+  __webpack_require__(165),
   /* scopeId */
   null,
   /* cssModules */
@@ -47898,14 +48025,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 161 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(151),
+  __webpack_require__(152),
   /* template */
-  __webpack_require__(166),
+  __webpack_require__(168),
   /* scopeId */
   null,
   /* cssModules */
@@ -47932,14 +48059,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 162 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(152),
+  __webpack_require__(153),
   /* template */
-  __webpack_require__(164),
+  __webpack_require__(166),
   /* scopeId */
   null,
   /* cssModules */
@@ -47966,7 +48093,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 163 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -47980,17 +48107,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('p', {
     staticClass: "meta datetime"
-  }, [_vm._v("Diffusion: " + _vm._s(_vm.diffusion.format('YYYY MM DD HH:mm')))]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Diffusion: " + _vm._s(_vm.diffusion.format('YYYY-MM-DD HH:mm')))]), _vm._v(" "), _c('p', {
     staticClass: "meta "
-  }, [_vm._v(_vm._s(_vm.result._source.programme.title))]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary btn-rounded"
-  }, [_c('i', {
-    staticClass: "fa fa-play"
-  }), _vm._v(" | " + _vm._s(_vm.duration))]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.result._source.programme.title))]), _vm._v(" "), _c('radioplayer', {
+    attrs: {
+      "mediaId": _vm.result._source.mediaId,
+      "startAt": _vm.result._source.startAt,
+      "endAt": _vm.result._source.endAt,
+      "duration": _vm.duration,
+      "diffusion": _vm.diffusion
+    }
+  }), _vm._v(" "), _c('div', {
     domProps: {
       "innerHTML": _vm._s(_vm.summary)
     }
-  })]), _vm._v(" "), _c('div', {
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "col-md-4"
   }, [_c('img', {
     staticClass: "thumbnail",
@@ -48008,7 +48139,7 @@ if (false) {
 }
 
 /***/ }),
-/* 164 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48073,7 +48204,7 @@ if (false) {
 }
 
 /***/ }),
-/* 165 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48113,7 +48244,7 @@ if (false) {
 }
 
 /***/ }),
-/* 166 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -48156,7 +48287,40 @@ if (false) {
 }
 
 /***/ }),
-/* 167 */
+/* 169 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('button', {
+    staticClass: "btn btn-primary btn-rounded",
+    class: {
+      'active': (!_vm.playing && _vm.play_state == 1) || !_vm.playing && _vm.play_state != 1
+    },
+    on: {
+      "click": _vm.on_click_button
+    }
+  }, [_c('i', {
+    staticClass: "fa",
+    class: {
+      'fa-play': !_vm.playing && _vm.play_state != 1, 'fa-pause': _vm.playing && _vm.play_state == 2, 'fa-hourglass-2': !_vm.playing && _vm.play_state == 1
+    }
+  }), _vm._v(_vm._s(this.duration))]), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": _vm.id,
+      "hidden": "hidden"
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-6a74a703", module.exports)
+  }
+}
+
+/***/ }),
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57472,7 +57636,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(128)))
 
 /***/ }),
-/* 168 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(130);
