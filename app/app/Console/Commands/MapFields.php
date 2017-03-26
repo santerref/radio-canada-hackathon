@@ -48,6 +48,7 @@ class MapFields extends Command
                                 'title' => [
                                     'type' => 'text',
                                     'analyzer' => 'french',
+                                    'boost' => 3,
                                 ],
                                 'canonicalWebLink' => [
                                     'type' => 'text',
@@ -55,6 +56,7 @@ class MapFields extends Command
                                 'summary' => [
                                     'type' => 'text',
                                     'analyzer' => 'french',
+                                    'boost' => 4,
                                 ],
                                 'broadcastedFirstTimeAt' => [
                                     'type' => 'date',
@@ -71,6 +73,7 @@ class MapFields extends Command
                                 'verbatim' => [
                                     'type' => 'text',
                                     'analyzer' => 'french',
+                                    'boost' => 2,
                                 ],
                                 'programme' => [
                                     'type' => 'nested',
@@ -101,6 +104,7 @@ class MapFields extends Command
                                         'title' => [
                                             'type' => 'text',
                                             'analyzer' => 'french',
+                                            'boost' => 2,
                                         ],
                                         'summary' => [
                                             'type' => 'text',

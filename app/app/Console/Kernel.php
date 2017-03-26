@@ -5,6 +5,8 @@ namespace App\Console;
 use App\Console\Commands\ExtractAudioText;
 use App\Console\Commands\MapFields;
 use App\Console\Commands\SyncRadioCanada;
+use App\Console\Commands\UpdateJobStatuses;
+use App\Console\Commands\UpdateVerbatim;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,6 +20,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         SyncRadioCanada::class,
         MapFields::class,
+        UpdateVerbatim::class,
+        UpdateJobStatuses::class,
     ];
 
     /**

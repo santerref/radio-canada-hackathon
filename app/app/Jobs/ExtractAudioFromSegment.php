@@ -91,21 +91,24 @@ class ExtractAudioFromSegment implements ShouldQueue
     protected function createAsset(MediaServicesRestProxy &$restProxy, $mediaFile, $fileName)
     {
         $asset = new Asset(Asset::OPTIONS_NONE);
+        $asset->setName($fileName);
         $asset = $restProxy->createAsset($asset);
 
         $access = new AccessPolicy('Public File');
         $access->setDurationInMinutes(3600);
-        $access->setPermissions(AccessPolicy::PERMISSIONS_WRITE);
+        $access->setPermissions(AccessPolicy::PERMISSIONS_WRITE | AccessPolicy::PERMISSIONS_LIST | AccessPolicy::PERMISSIONS_READ);
         $access = $restProxy->createAccessPolicy($access);
 
         $sasLocator = new Locator($asset, $access, Locator::TYPE_SAS);
-        $sasLocator->setStartTime(new \DateTime('now -5 minutes'));
         $sasLocator = $restProxy->createLocator($sasLocator);
 
         $handle = fopen($mediaFile, 'r');
         $restProxy->uploadAssetFile($sasLocator, $fileName, $handle);
         $restProxy->createFileInfos($asset);
         fclose($handle);
+
+        $restProxy->deleteLocator($sasLocator);
+        $restProxy->deleteAccessPolicy($access);
 
         return $asset;
     }

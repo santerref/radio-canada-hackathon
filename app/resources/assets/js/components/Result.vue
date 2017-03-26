@@ -1,12 +1,12 @@
 <template>
     <div class="result-item">
         <div class="infos">
-            <img class="thumbnail" v-bind:src="result._source.programme.image">
-            <h3 v-html="result._source.title"></h3>
-            <p class="meta datetime">Diffusion: {{ diffusion.format('YYYY MM DD HH:mm') }}</p>
+            <img :alt="alt" class="thumbnail" v-bind:src="result._source.programme.image">
             <p class="meta ">{{ result._source.programme.title }}</p>
+            <h2 v-html="result._source.title"></h2>
+            <p class="meta datetime">Diffusion: {{ diffusion.format('YYYY MM DD HH:mm') }}</p>
             <button class="btn btn-primary btn-rounded"><i class="fa fa-play"></i> | {{ duration }}</button>
-            <div v-html="summary"></div>
+            <div class="summary" v-html="summary"></div>
         </div>
     </div>
 </template>
@@ -29,7 +29,30 @@
                 if (this.result._source.summary.length == 0) return "Aucun sommaire";
 
                 return this.result._source.summary;
+            },
+            alt () {
+                return "Photo de l'animateur de l'émission « " + this.result._source.programme.title + " »";
             }
         }
     }
 </script>
+
+<style scoped rel="stylesheet/scss" lang="scss">
+    h2 {
+        margin-top: 10px;
+    }
+
+    .meta {
+        font-size: 1rem;
+        text-transform: uppercase;
+        color: #555;
+    }
+
+    img {
+        margin: 0 0 35px 35px;
+    }
+
+    .summary {
+        margin-top: 1rem;
+    }
+</style>
