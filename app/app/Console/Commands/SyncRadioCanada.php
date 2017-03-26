@@ -42,33 +42,37 @@ class SyncRadioCanada extends Command
         } else {
             foreach ($programmeIds as $programmeId) {
 
-                $sitesearchResult = app('sitesearch')->call(
-                    'internal/rcgraph/indexable-content-summaries',
-                    [
-                        'ContentTypeIds' => '18',
-                        'programmeIds' => $programmeId,
-                        'pageSize' => config('radiocanada.page_size'),
-                    ]
-                );
+                try {
+                    $sitesearchResult = app('sitesearch')->call(
+                        'internal/rcgraph/indexable-content-summaries',
+                        [
+                            'ContentTypeIds' => '18',
+                            'programmeIds' => $programmeId,
+                            'pageSize' => config('radiocanada.page_size'),
+                        ]
+                    );
 
-                $programme = app('neuro')->call('programmes/' . $programmeId);
+                    $programme = app('neuro')->call('programmes/' . $programmeId);
 
-                foreach ($sitesearchResult['items'] as $key => $episode) {
-                    echo ($key + 1) . "/" . count($sitesearchResult['items']) . "\r\n";
-                    $neuroResult = app('neuro')->call('episodes/' . $episode['id'] . '/clips');
-                    echo "\t " . count($neuroResult) . " segments.\r\n";
-                    foreach ($neuroResult as $segment) {
-                        $media = $this->getMediaFromSegment($segment);
+                    foreach ($sitesearchResult['items'] as $key => $episode) {
+                        echo ($key + 1) . "/" . count($sitesearchResult['items']) . " (" . $programmeId . ")\r\n";
+                        $neuroResult = app('neuro')->call('episodes/' . $episode['id'] . '/clips');
+                        echo "\t" . count($neuroResult) . " segments.\r\n";
+                        foreach ($neuroResult as $segment) {
+                            $media = $this->getMediaFromSegment($segment);
 
-                        if ($media) {
-                            dispatch(new SyncEpisode([
-                                'episode' => $episode,
-                                'programme' => $programme,
-                                'segment' => $segment,
-                                'media' => $media,
-                            ], $this->option('extract-audio')));
+                            if ($media) {
+                                dispatch(new SyncEpisode([
+                                    'episode' => $episode,
+                                    'programme' => $programme,
+                                    'segment' => $segment,
+                                    'media' => $media,
+                                ], $this->option('extract-audio')));
+                            }
                         }
                     }
+                } catch (\Exception $e) {
+                    echo $e->getCode() . ": " . $e->getMessage() . "\r\n";
                 }
             }
         }

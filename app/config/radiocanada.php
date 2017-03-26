@@ -8,4 +8,8 @@ return [
 
     'page_size' => env('RADIOCANADA_PAGE_SIZE', 100),
 
+    'media_uri' => env('RADIOCANADA_MEDIA'),
+
+    'ffmpeg' => env('RADIOCANDA_FFMPEG', '/usr/local/bin/ffmpeg'),
+
 ];

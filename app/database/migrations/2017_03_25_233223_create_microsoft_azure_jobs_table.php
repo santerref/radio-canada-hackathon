@@ -15,9 +15,11 @@ class CreateMicrosoftAzureJobsTable extends Migration
     {
         Schema::create('microsoft_azure_jobs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('job_id', 155)->unsigned()->unique();
+            $table->string('asset_id', 155)->unique();
+            $table->string('job_id', 155)->unique();
             $table->integer('media_id')->unsigned()->unique();
             $table->string('status', 155);
+            $table->timestamps();
         });
     }
 
