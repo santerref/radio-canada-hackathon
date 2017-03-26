@@ -5,7 +5,7 @@
             <p class="meta ">{{ result._source.programme.title }}</p>
             <h2 v-html="result._source.title"></h2>
             <p class="meta datetime">Diffusion: {{ diffusion.format('YYYY MM DD HH:mm') }}</p>
-            <button class="btn btn-primary btn-rounded"><i class="fa fa-play"></i> | {{ duration }}</button>
+            <radioplayer :mediaId="result._source.mediaId" :startAt="result._source.startAt" :endAt="result._source.endAt" :duration="duration" :diffusion="diffusion"></radioplayer>
             <div class="summary" v-html="summary"></div>
         </div>
     </div>

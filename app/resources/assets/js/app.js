@@ -17,11 +17,18 @@ require('./bootstrap');
 Vue.component('search', require('./components/Search.vue'));
 Vue.component('bs-select', require('./components/BsSelect.vue'));
 Vue.component('results', require('./components/Results.vue'));
+Vue.component('radioplayer', require('./components/RadioPlayer.vue'));
 
 import EmissionsChoices from './components/EmissionsSelectChoices';
 import TimetenseChoices from './components/TimetenseChoices';
 import RegionChoices from './components/RegionChoices';
 import Axios from 'axios';
+
+/*
+window.premierePlayer = new RadioCanada.player('premiere_player', {
+    'appCode': 'medianet'
+});
+*/
 
 const app = new Vue({
     el: '#app',
@@ -34,8 +41,13 @@ const app = new Vue({
             regionChoice: RegionChoices[0],
             regionChoices: RegionChoices,
             results: [],
-            isSearching: false
+            haveResults: true,
+            isSearching: false,
+            query: ""
         }
+    },
+    mounted () {
+
     },
     methods : {
         updateEmission (choice) {
@@ -47,17 +59,28 @@ const app = new Vue({
         updateRegion (choice) {
             this.regionChoice = choice;
         },
-        search (query) {
+        search () {
+            if (this.query.length == 0) {
+                this.results = [];
+                this.haveResults = false;
+                return;
+            }
+
+            this.haveResults = true;
             this.isSearching = true;
             axios.get('/api/search', { params : {
-                q: query,
+                q: this.query,
                 timetense: this.timetenseChoice.value,
                 region: this.regionChoice.value,
                 emission: this.emissionChoice.value
             }}).then(response => {
                 this.results = response.data;
+                this.haveResults = this.results.length > 0;
                 this.isSearching = false;
             });
+        },
+        type (query) {
+            this.query = query;
         }
     }
 });

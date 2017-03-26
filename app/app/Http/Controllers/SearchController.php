@@ -25,10 +25,10 @@ class SearchController extends Controller
 
         $results = \GuzzleHttp\json_decode($response->getBody()->getContents(), true)['hits']['hits'];
 
-        // $results = $this->fakeResults();
-
         $results = array_map(function ($result) {
             $result['_source']['title'] = html_entity_decode($result['_source']['title']);
+
+            $result['_source']['summary'] = strip_tags($result['_source']['summary']);
 
             $start = Carbon::parse($result['_source']['startAt']);
             $end = Carbon::parse($result['_source']['endAt']);
@@ -78,6 +78,7 @@ class SearchController extends Controller
                 'emission' => $faker->randomElement($emissions),
                 'duration' => $faker->numberBetween(1, 30 * 60),
                 'description' => $faker->paragraph,
+                'mediaId' => '7674466'
             ];
         }
 

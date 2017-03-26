@@ -5,7 +5,7 @@
     <section class="search">
         <div class="container">
             <div class="col-md-12">
-                <search :searching="isSearching" v-on:search="search"></search>
+                <search :searching="isSearching" v-on:search="search" v-on:type="type"></search>
             </div>
         </div>
     </section>
@@ -26,6 +26,13 @@
         <div class="container">
             <div class="col-md-12">
                 <results :results="results"></results>
+            </div>
+        </div>
+    </section>
+    <section class="results" v-show="!haveResults">
+        <div class="container">
+            <div class="col-md-12">
+                Aucun résultat
             </div>
         </div>
     </section>
