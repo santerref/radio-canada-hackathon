@@ -33,7 +33,8 @@ const app = new Vue({
             timetenseChoices: TimetenseChoices,
             regionChoice: RegionChoices[0],
             regionChoices: RegionChoices,
-            results: []
+            results: [],
+            isSearching: false
         }
     },
     methods : {
@@ -47,13 +48,15 @@ const app = new Vue({
             this.regionChoice = choice;
         },
         search (query) {
+            this.isSearching = true;
             axios.get('/api/search', { params : {
                 q: query,
                 timetense: this.timetenseChoice.value,
                 region: this.regionChoice.value,
                 emission: this.emissionChoice.value
             }}).then(response => {
-                this.results = response.data
+                this.results = response.data;
+                this.isSearching = false;
             });
         }
     }

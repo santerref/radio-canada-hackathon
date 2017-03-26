@@ -5,7 +5,7 @@
     <section class="search">
         <div class="container">
             <div class="col-md-12">
-                <search v-on:search="search"></search>
+                <search :searching="isSearching" v-on:search="search"></search>
             </div>
         </div>
     </section>

@@ -10,7 +10,18 @@ class SearchController extends Controller
 {
     public function index(SearchRequest $request)
     {
-        $response = app('elastic')->request('GET', 'media/segment/_search?size=5');
+        $response = app('elastic')->request('POST', 'media/segment/_search', [
+            'query' => [
+                'size' => 100
+            ],
+            'body' => json_encode([
+                'query' => [
+                    'query_string' => [
+                        'query' => $request->get('q')
+                    ]
+                ]
+            ])
+        ]);
 
         $results = \GuzzleHttp\json_decode($response->getBody()->getContents(), true)['hits']['hits'];
 
