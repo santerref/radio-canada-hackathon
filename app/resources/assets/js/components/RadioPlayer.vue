@@ -18,17 +18,19 @@
     };
 
     export default {
+        props: ['mediaId'],
         data() {
             return {
-                id: "radiocanada_player_" + generateUUID()
+                id: "radiocanada_player_" + generateUUID(),
+                player: null
             }
         },
-        mounted() {
-            radioPlayerInstance = new RadioCanada.player(this.id, {
+        ready() {
+            this.player = new RadioCanada.player(this.id, {
                 'appCode': 'medianet'
             });
         },
-        computed() {
+        on: {
             
         }
     }

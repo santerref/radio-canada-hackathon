@@ -28,6 +28,8 @@
         @yield('content')
     </div>
 
+    <div id='premiere_player'></div>
+    
     <!-- Scripts -->
     <script type="text/javascript" src="https://services.radio-canada.ca/media/player/client/radiocanadaca_premiere"></script>
     <script src="{{ asset('js/app.js') }}"></script>

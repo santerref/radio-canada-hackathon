@@ -15,7 +15,6 @@ require('./bootstrap');
 
 //Vue.component('example', require('./components/Example.vue'));
 Vue.component('search', require('./components/Search.vue'));
-Vue.component('radioplayer', require('./components/RadioPlayer.vue'));
 Vue.component('bs-select', require('./components/BsSelect.vue'));
 Vue.component('results', require('./components/Results.vue'));
 
@@ -23,6 +22,10 @@ import EmissionsChoices from './components/EmissionsSelectChoices';
 import TimetenseChoices from './components/TimetenseChoices';
 import RegionChoices from './components/RegionChoices';
 import Axios from 'axios';
+
+premierePlayer = new RadioCanada.player('premiere_player', {
+    'appCode': 'medianet'
+});
 
 const app = new Vue({
     el: '#app',
@@ -57,5 +60,6 @@ const app = new Vue({
                 this.results = response.data
             });
         }
-    }
+    },
+    player: premierePlayer
 });
