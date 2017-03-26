@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button :class="{'active': (!playing && play_state == 1) || !playing && play_state != 1}" class="btn btn-primary btn-rounded" @click="on_click_button"><i :class="{'fa-play': !playing && play_state != 1, 'fa-pause': playing && play_state == 2, 'fa-hourglass-2': !playing && play_state == 1}" class="fa"></i>{{this.duration}}</button>
+        <button :class="{'active': (!playing && play_state == 1) || !playing && play_state != 1}" class="btn btn-primary btn-rounded" @click="on_click_button"><span class="sr-only">Démarrer l'audio</span><i :class="{'fa-play': !playing && play_state != 1, 'fa-pause': playing && play_state == 2, 'fa-hourglass-2': !playing && play_state == 1}" class="fa"></i>{{this.duration}}</button>
         <div :id="id" hidden="hidden"></div>
     </div>
 </template>
