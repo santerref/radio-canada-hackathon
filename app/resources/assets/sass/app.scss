@@ -7,3 +7,72 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+section.search {
+  padding-top: 60px;
+  padding-bottom: 20px;
+  background-color: #2e6da4;
+}
+
+.search input[type="text"] {
+  width: 350px;
+  margin-right: 10px;
+  color: #000;
+  font-family: 'Roboto', sans-serif;
+}
+
+.search button.search-btn, .search input[type="button"].search-btn {
+  background-color: #e98300;
+  border: none;
+  line-height: 1.9em;
+  padding-right: 15px;
+  padding-left: 15px;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.search h2.title {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: bold;
+}
+
+.search p.headline {
+  font-family: 'Fira Sans', sans-serif;
+}
+
+section {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+section.tags {
+  background-color: #e0e0e0;
+}
+
+section.tags .label {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+section.results {
+  color: #000;
+}
+
+.font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-fira {
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.result-list {
+  background-color: #e0e0e0;
+}
+
+.result-list .infos {
+  max-width: 50%;
+}
+
+.result-list .result-image {
+  min-width: 300px;
+}

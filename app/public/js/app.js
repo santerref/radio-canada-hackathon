@@ -12102,9 +12102,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        return {
-            a: 1
-        };
+        return {};
     },
 
     methods: {
@@ -31657,7 +31655,7 @@ var Component = __webpack_require__(35)(
   /* cssModules */
   null
 )
-Component.options.__file = "/home/adam/Development/hackathon-src-2017/radio-canada-hackathon/app/resources/assets/js/components/Search.vue"
+Component.options.__file = "/var/www/hackathon/radio-canada-hackathon/app/resources/assets/js/components/Search.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Search.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -31735,20 +31733,26 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container"
-  }, [_c('form', [_c('p', [_vm._v("Ceci est ma valeur: " + _vm._s(_vm.a))]), _vm._v(" "), _c('input', {
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('section', {
+    staticClass: "search"
+  }, [_c('h2', {
+    staticClass: "titre"
+  }, [_vm._v("Nom du projet")]), _vm._v(" "), _c('p', {
+    staticClass: "headline"
+  }, [_vm._v("Ce que vous avez entendu en ondes")]), _vm._v(" "), _c('input', {
+    staticClass: "search-input",
     attrs: {
-      "type": "button",
-      "value": "Incrémente-moi ça"
-    },
-    on: {
-      "click": function($event) {
-        _vm.increment()
-      }
+      "type": "text"
     }
-  })])])
-},staticRenderFns: []}
+  }), _vm._v(" "), _c('button', {
+    staticClass: "search-btn",
+    attrs: {
+      "type": "button"
+    }
+  }, [_vm._v("Rechercher")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
